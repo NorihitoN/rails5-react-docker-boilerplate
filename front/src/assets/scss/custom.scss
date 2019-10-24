@@ -15,11 +15,18 @@
 //     50%{background-position:100% 50%}
 //     100%{background-position:0% 50%}
 // }
+.topsection1 {
+    background-image: url("../img/lifemap-top-image.jpg");
+    background-position-y: center;
+    background-size: cover;
+    color: #ffffff;
+
+}
 
 // Jumbotron
-.jumbotron.jumbotron-bg-transparent {
-    background-color: transparent;
-    padding: 8rem 2rem;
+.jumbotron.jumbotron-bg-transparent{
+        background-color: transparent;
+        padding: 8rem 2rem;
 }
 
 // Signup

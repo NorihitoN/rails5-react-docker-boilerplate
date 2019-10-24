@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-import './assets/custom.scss';
+import './assets/scss/custom.scss';
 
 import * as serviceWorker from './serviceWorker';
 import Home from './views/Home.js';
