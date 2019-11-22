@@ -75,7 +75,8 @@ class Signup extends Component {
 }
 
 const mapStateToProps = state => ({
-  accessToken: state.accessToken
+  currentUser: state.currentUser,
+  authHeaders: state.authHeaders
 })
 
 const mapDispatchToProps = dispatch => ({
