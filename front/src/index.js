@@ -10,12 +10,8 @@ import Home from './views/Home.js';
 import About from './views/About.js';
 import Signup from './views/Signup.js';
 import Login from './views/Login.js';
+import Profile from './views/Profile.js';
 
-function Profile() {
-  return (
-      <h2>Profile</h2>
-  )
-}
 
 ReactDOM.render(
   <Provider store={store}>

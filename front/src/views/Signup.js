@@ -26,7 +26,7 @@ class Signup extends Component {
     return (
       <div className="signup-page">
         <Header />
-        <Container>
+        <Container className="signup-page-topmargin">
           <Row>
             <Col md={{ span: 6, offset: 3 }}>
               <h2>Sign up</h2>
@@ -75,7 +75,6 @@ class Signup extends Component {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.currentUser,
   authHeaders: state.authHeaders
 })
 

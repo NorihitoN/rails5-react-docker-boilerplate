@@ -49,5 +49,37 @@ export const registerUser = (data) => (dispatch) => {
         dispatch(setUserAttributes(userAttributes));
     })
     .catch(e => alert(e));
+}
 
+
+export const signInUser = (data) => (dispatch) => {
+    console.log("Login with Email");
+    return fetch(`${HOST}/api/auth/sign_in`, {
+        method: 'POST',
+        body: JSON.stringify({
+            email: data.email,
+            password: data.password,
+        }),
+        headers: { "content-type": "application/json" },
+    })
+    .then(response => {
+        if(response.headers.get('access-token')){
+            const authHeaders = {
+                'access-token': response.headers.get('access-token'),
+                'client': response.headers.get('client'),
+                'uid': response.headers.get('uid'),
+                'expiry': response.headers.get('expiry'),
+                'token-type': response.headers.get('token-type')
+            }
+            dispatch(setAuthHeaders(authHeaders));
+        }
+        return response.json();
+    })
+    .then(json => {
+        const userAttributes = {
+            'username': json.data.username
+        }
+        dispatch(setUserAttributes(userAttributes));
+    })
+    .catch(e => alert(e));
 }
