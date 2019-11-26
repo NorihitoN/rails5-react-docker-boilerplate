@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Button} from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
 
@@ -30,7 +30,7 @@ class Header extends React.Component {
                                 <Nav.Link>Sign up</Nav.Link>
                             </LinkContainer>
                         }
-                        {isLoggedIn === true &&
+                        {isLoggedIn === false &&
                             <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                                 <LinkContainer to="/profile">
                                     <NavDropdown.Item>Profile</NavDropdown.Item>

@@ -1,20 +1,58 @@
 import { HOST } from '../constants';
 
-export const SET_AUTH_HEADERS = 'SET_AUTH_HEDEARS';
-export const SET_USER_ATTRIBUTES = 'SET_USER_ATTRIBUTES'
+export const RESISTER_REQUEST_SENT = 'RESISTER_REQUEST_SENT';
+export const RESISTER_REQUEST_SUCCEEDED = 'RESISTER_REQUEST_SUCCEEDED';
+export const RESISTER_REQUEST_FAILED = 'RESISTER_REQUEST_FAILED';
+export const VERIFY_TOKEN_REQUEST_SENT = 'VERYFY_TOKEN_REQUEST_SENT';
+export const VERIFY_TOKEN_REQUEST_SUCCEEDED = 'VERYFY_TOKEN_REQUEST_SUCCEEDED';
+export const VERIFY_TOKEN_REQUEST_FAILED= 'VERYFY_TOKEN_REQUEST_FAILED';
+export const SIGN_IN_REQUEST_SENT = 'SIGN_IN_REQUEST_SENT';
+export const SIGN_IN_REQUEST_SUCCEEDED = 'SIGN_IN_REQUEST_SUCCEEDED';
+export const SIGN_IN_REQUEST_FAILED = 'SIGN_IN_REQUEST_FAILED';
+export const SIGN_OUT_REQUEST_SENT = 'SIGN_OUT_REQUEST_SENT';
+export const SIGN_OUT_REQUEST_SUCCEEDED = 'SIGN_OUT_REQUEST_SUCCEEDED';
+export const SIGN_OUT_REQUEST_FAILED= 'SIGN_OUT_REQUEST_FAILED';
 
-export function setAuthHeaders(authHeaders) {
-  return {
-    type: SET_AUTH_HEADERS,
-    authHeaders,
-  };
+export function resisterRequestSent() {
+    return {
+        type: RESISTER_REQUEST_SENT,
+    }
 }
 
-export function setUserAttributes(userAttributes) {
-  return {
-    type: SET_USER_ATTRIBUTES,
-    userAttributes,
-  };
+export function resisterRequestSucceeded(userAttributes) {
+    return {
+        type: RESISTER_REQUEST_SUCCEEDED,
+        payload: {
+            userAttributes,
+        },
+    }
+}
+
+export function resisterRequestFailed() {
+    return {
+        type: RESISTER_REQUEST_FAILED,
+    }
+}
+
+export function signInRequestSent() {
+    return {
+        type: SIGN_IN_REQUEST_SENT,
+    }
+}
+
+export function signInRequestSucceeded(userAttributes) {
+    return {
+        type: SIGN_IN_REQUEST_SUCCEEDED,
+        payload: {
+            userAttributes,
+        },
+    }
+}
+
+export function signInRequestFailed() {
+    return {
+        type: SIGN_IN_REQUEST_FAILED,
+    }
 }
 
 export const persistAuthHeadersLocalStorage = (authHeaders) => {
@@ -24,6 +62,7 @@ export const persistAuthHeadersLocalStorage = (authHeaders) => {
 }
 
 export const registerUser = (data) => (dispatch) => {
+    dispatch(resisterRequestSent());
     console.log("register a new user");
     return fetch(`${HOST}/api/auth`, {
         method: 'POST',
@@ -51,13 +90,14 @@ export const registerUser = (data) => (dispatch) => {
         const userAttributes = {
             'username': json.data.username
         }
-        dispatch(setUserAttributes(userAttributes));
+        dispatch(resisterRequestSucceeded(userAttributes));
     })
     .catch(e => alert(e));
 }
 
 
 export const signInUser = (data) => (dispatch) => {
+    dispatch(signInRequestSent());
     console.log("Login with Email");
     return fetch(`${HOST}/api/auth/sign_in`, {
         method: 'POST',
@@ -84,7 +124,7 @@ export const signInUser = (data) => (dispatch) => {
         const userAttributes = {
             'username': json.data.username
         }
-        dispatch(setUserAttributes(userAttributes));
+        dispatch(signInRequestSucceeded(userAttributes));
     })
     .catch(e => alert(e));
 }
