@@ -7,7 +7,6 @@ const initialState = {
         hasVerificationBeenAttempted: false,
         attributes: {},
     },
-    authHeaders: {},
 }
 
 export default function (state = initialState, action) {

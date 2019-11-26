@@ -17,6 +17,11 @@ export function setUserAttributes(userAttributes) {
   };
 }
 
+export const persistAuthHeadersLocalStorage = (authHeaders) => {
+  Object.keys(authHeaders).forEach((key) => {
+    localStorage.setItem(key, authHeaders[key]);
+  });
+}
 
 export const registerUser = (data) => (dispatch) => {
     console.log("register a new user");
@@ -38,7 +43,7 @@ export const registerUser = (data) => (dispatch) => {
                 'expiry': response.headers.get('expiry'),
                 'token-type': response.headers.get('token-type')
             }
-            dispatch(setAuthHeaders(authHeaders));
+            persistAuthHeadersLocalStorage(authHeaders);
         }
         return response.json();
     })
@@ -71,7 +76,7 @@ export const signInUser = (data) => (dispatch) => {
                 'expiry': response.headers.get('expiry'),
                 'token-type': response.headers.get('token-type')
             }
-            dispatch(setAuthHeaders(authHeaders));
+            persistAuthHeadersLocalStorage(authHeaders);
         }
         return response.json();
     })
