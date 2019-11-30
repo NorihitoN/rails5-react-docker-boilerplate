@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { createBrowserHistory } from 'history'
 import { Provider } from 'react-redux';
 import store from './store/configureStore';
 import './assets/scss/custom.scss';
@@ -11,22 +12,25 @@ import About from './views/About.js';
 import Signup from './views/Signup.js';
 import Login from './views/Login.js';
 import Profile from './views/Profile.js';
+import Auth from './views/Auth.js';
+
+function Dashboard() { 
+  return <div>dashboard</div>
+}
+
+const history = createBrowserHistory({})
 
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
+    <Router history={history}>
         <Switch>
-          <Route path="/about" component={About}>
-          </Route>
-          <Route path="/login" component={Login}>
-          </Route> 
-          <Route path="/signup" component={Signup}>
-          </Route>
-          <Route path="/profile" component={Profile}>
-          </Route>
-          <Route path="/" component={Home}>
-          </Route>
+          <Route path="/about" component={About}/>
+          <Route path="/login" component={Login}/>
+          <Route path="/signup" component={Signup}/>
+          <Route path="/profile" component={Profile} />
+          <Auth path="/app" component={Dashboard} />
+          <Route path="/" component={Home}/>
         </Switch>
     </Router>
   </Provider>,

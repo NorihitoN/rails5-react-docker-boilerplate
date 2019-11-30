@@ -12,6 +12,30 @@ class Login extends Component {
     this.handleLogin = this.handleLogin.bind(this);
   }
 
+  componentDidMount(){
+    const {
+      history,
+      hasVerificationBeenAttempted,
+      isSignedIn,
+    } = this.props; 
+    if (hasVerificationBeenAttempted && isSignedIn) {
+      history.push("/app")
+    }
+  }
+  
+  componentDidUpdate(prevProps){
+    const {
+      history,
+      hasVerificationBeenAttempted,
+      isSignedIn,
+    } = this.props; 
+    if (isSignedIn !== prevProps.isSignedIn) {
+      if (hasVerificationBeenAttempted && isSignedIn) {
+        history.push("/app")
+      }
+    } 
+  }
+
   handleInputChange(e) {
     this.setState({
       [e.target.name]: e.target.value
@@ -66,7 +90,8 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-  authHeaders: state.authHeaders
+  isSignedIn: state.auth.currentUser.isSignedIn,
+  hasVerificationBeenAttempted: state.auth.currentUser.hasVerificationBeenAttempted,
 })
 
 const mapDispatchToProps = dispatch => ({
