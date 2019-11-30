@@ -11,26 +11,26 @@ import Home from './views/Home.js';
 import About from './views/About.js';
 import Signup from './views/Signup.js';
 import Login from './views/Login.js';
+import Dashboard from './views/Dashboard.js';
 import Profile from './views/Profile.js';
 import Auth from './views/Auth.js';
 
-function Dashboard() { 
-  return <div>dashboard</div>
-}
-
 const history = createBrowserHistory({})
-
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
         <Switch>
-          <Route path="/about" component={About}/>
-          <Route path="/login" component={Login}/>
-          <Route path="/signup" component={Signup}/>
-          <Route path="/profile" component={Profile} />
-          <Auth path="/app" component={Dashboard} />
-          <Route path="/" component={Home}/>
+          <Route exact path="/" component={Home}/>
+          <Route exact path="/about" component={About}/>
+          <Route exact path="/login" component={Login}/>
+          <Route exact path="/signup" component={Signup}/>
+          <Auth>
+            <Switch>
+              <Route exact path="/app" component={Dashboard} />
+              <Route exact path="/app/profile" component={Profile} />
+            </Switch>
+          </Auth>
         </Switch>
     </Router>
   </Provider>,
