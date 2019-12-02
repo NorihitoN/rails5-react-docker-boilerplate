@@ -1,10 +1,16 @@
 import React from 'react';
-import { Button, Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
+import Header from "../components/Header.js";
 
 function Profile() {
   return (
     <div className="profile-page">
-      Profile
+      <Header />
+      <div className="section1">
+          <Container>
+            Profile
+          </Container>
+      </div>
     </div>
   )
 }

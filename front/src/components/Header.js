@@ -3,8 +3,18 @@ import { connect } from 'react-redux';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
+import { signOutUser } from '../actions/auth';
 
 class Header extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleLogout = this.handleLogout.bind(this);
+    }
+
+    handleLogout() {
+        this.props.signOutUser();
+    }
+
     render() {
         const { isSignedIn } = this.props;
 
@@ -45,7 +55,7 @@ class Header extends React.Component {
                                 </LinkContainer>
                                 <NavDropdown.Divider />
                                 <LinkContainer to="/logout">
-                                    <NavDropdown.Item>Logout</NavDropdown.Item>
+                                    <NavDropdown.Item onClick={this.handleLogout}>Logout</NavDropdown.Item>
                                 </LinkContainer>
                             </NavDropdown>
                         }
@@ -63,4 +73,8 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = dispatch => ({
+  signOutUser: () => dispatch(signOutUser()),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

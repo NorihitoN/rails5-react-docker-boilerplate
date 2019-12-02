@@ -1,8 +1,8 @@
 import { HOST } from '../constants';
 
-export const RESISTER_REQUEST_SENT = 'RESISTER_REQUEST_SENT';
-export const RESISTER_REQUEST_SUCCEEDED = 'RESISTER_REQUEST_SUCCEEDED';
-export const RESISTER_REQUEST_FAILED = 'RESISTER_REQUEST_FAILED';
+export const REGISTER_REQUEST_SENT = 'REGISTER_REQUEST_SENT';
+export const REGISTER_REQUEST_SUCCEEDED = 'REGISTER_REQUEST_SUCCEEDED';
+export const REGISTER_REQUEST_FAILED = 'REGISTER_REQUEST_FAILED';
 export const VERIFY_TOKEN_REQUEST_SENT = 'VERYFY_TOKEN_REQUEST_SENT';
 export const VERIFY_TOKEN_REQUEST_SUCCEEDED = 'VERYFY_TOKEN_REQUEST_SUCCEEDED';
 export const VERIFY_TOKEN_REQUEST_FAILED= 'VERYFY_TOKEN_REQUEST_FAILED';
@@ -14,24 +14,24 @@ export const SIGN_OUT_REQUEST_SUCCEEDED = 'SIGN_OUT_REQUEST_SUCCEEDED';
 export const SIGN_OUT_REQUEST_FAILED= 'SIGN_OUT_REQUEST_FAILED';
 export const SET_HAS_VERIFICATION_BEEN_ATTEMPTED = 'SET_HAS_BERIFICATION_BEEN_ATTEMPTED';
 
-export function resisterRequestSent() {
+export function registerRequestSent() {
     return {
-        type: RESISTER_REQUEST_SENT,
+        type: REGISTER_REQUEST_SENT,
     }
 }
 
-export function resisterRequestSucceeded(userAttributes) {
+export function registerRequestSucceeded(userAttributes) {
     return {
-        type: RESISTER_REQUEST_SUCCEEDED,
+        type: REGISTER_REQUEST_SUCCEEDED,
         payload: {
             userAttributes,
         },
     }
 }
 
-export function resisterRequestFailed() {
+export function registerRequestFailed() {
     return {
-        type: RESISTER_REQUEST_FAILED,
+        type: REGISTER_REQUEST_FAILED,
     }
 }
 
@@ -77,6 +77,24 @@ export function signInRequestFailed() {
     }
 }
 
+export function signOutRequestSent() {
+    return {
+        type: SIGN_OUT_REQUEST_SENT,
+    }
+}
+
+export function signOutRequestSucceeded() {
+    return {
+        type: SIGN_OUT_REQUEST_SUCCEEDED,
+    }
+}
+
+export function signOutRequestFailed() {
+    return {
+        type: SIGN_OUT_REQUEST_FAILED,
+    }
+}
+
 export function setHasVerificationBeenAttempted(hasVerificationBeenAttempted){
     return {
         type: SET_HAS_VERIFICATION_BEEN_ATTEMPTED,
@@ -92,8 +110,14 @@ export const persistAuthHeadersLocalStorage = (authHeaders) => {
   });
 }
 
+export const deleteAuthHeadersLocalStorage = (authHeaderKeys) => {
+    authHeaderKeys.forEach((key) => {
+        localStorage.removeItem(key);
+    })
+}
+
 export const registerUser = (data) => (dispatch) => {
-    dispatch(resisterRequestSent());
+    dispatch(registerRequestSent());
     console.log("register a new user");
     return fetch(`${HOST}/api/auth`, {
         method: 'POST',
@@ -121,7 +145,7 @@ export const registerUser = (data) => (dispatch) => {
         const userAttributes = {
             'username': json.data.username
         }
-        dispatch(resisterRequestSucceeded(userAttributes));
+        dispatch(registerRequestSucceeded(userAttributes));
     })
     .catch(e => alert(e));
 }
@@ -186,6 +210,28 @@ export const signInUser = (data) => (dispatch) => {
         dispatch(signInRequestSucceeded(userAttributes));
     })
     .catch(e => alert(e));
+}
+
+export const signOutUser = () => (dispatch) => {
+    dispatch(signOutRequestSent());
+    console.log("Sign out");
+    if(localStorage.getItem('access-token')) {
+        const verificationHeaders = new Headers();
+        verificationHeaders.append('access-token', localStorage.getItem('access-token').toString());
+        verificationHeaders.append('uid', localStorage.getItem('uid').toString());
+        verificationHeaders.append('client', localStorage.getItem('client').toString());
+        return fetch(`${HOST}/api/auth/sign_out`,{
+            method: 'DELETE',
+            headers: verificationHeaders, 
+        })
+        .then(response => {
+            const authHeaderKeys = ['access-token', 'client', 'uid', 'expiry', 'token-type'];
+            deleteAuthHeadersLocalStorage(authHeaderKeys);
+            dispatch(signOutRequestSucceeded());
+            return response.json();
+        })
+        .catch(e => alert(e));
+    }
 }
 
 export const verifyCredentials = (store) => {

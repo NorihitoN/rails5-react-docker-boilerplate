@@ -1,7 +1,7 @@
 import { 
-    RESISTER_REQUEST_SENT,
-    RESISTER_REQUEST_SUCCEEDED,
-    // RESISTER_REQUEST_FAILED,
+    REGISTER_REQUEST_SENT,
+    REGISTER_REQUEST_SUCCEEDED,
+    // REGISTER_REQUEST_FAILED,
     VERIFY_TOKEN_REQUEST_SENT,
     VERIFY_TOKEN_REQUEST_SUCCEEDED,
     // VERIFY_TOKEN_REQUEST_FAILED,
@@ -10,7 +10,7 @@ import {
     SIGN_IN_REQUEST_SUCCEEDED,
     // SIGN_OUT_REQUEST_FAILED,
     SIGN_OUT_REQUEST_SENT,
-    // SIGN_OUT_REQUEST_SUCCEEDED,
+    SIGN_OUT_REQUEST_SUCCEEDED,
     SET_HAS_VERIFICATION_BEEN_ATTEMPTED,
 } from '../actions/auth';
 
@@ -26,7 +26,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch(action.type){
-        case RESISTER_REQUEST_SENT:
+        case REGISTER_REQUEST_SENT:
         case VERIFY_TOKEN_REQUEST_SENT:
         case SIGN_IN_REQUEST_SENT:
         case SIGN_OUT_REQUEST_SENT:
@@ -46,7 +46,7 @@ export default function (state = initialState, action) {
                                hasVerificationBeenAttempted: true,
                 },
             }
-        case RESISTER_REQUEST_SUCCEEDED:
+        case REGISTER_REQUEST_SUCCEEDED:
         case SIGN_IN_REQUEST_SUCCEEDED:
             return {
                 ...state,
@@ -56,6 +56,26 @@ export default function (state = initialState, action) {
                                isSignedIn: true,
                 },
             }
+        case SIGN_OUT_REQUEST_SUCCEEDED:
+            const userAttributesKeys = Object.keys(state.currentUser.attributes);
+            const allNullUserAttributes = userAttributesKeys.reduce(
+                (accumulatedNullUserAttributes, currentUserAttributeKey) => {
+                    return {
+                        ...accumulatedNullUserAttributes,
+                        [currentUserAttributeKey]: null,
+                    }
+                },
+                {},
+            )
+            return {
+                ...state,
+                currentUser: { ...state.currentUser,
+                               attributes: allNullUserAttributes,
+                               isLoading: false,
+                               isSignedIn: false,
+                },
+
+            }
         case SET_HAS_VERIFICATION_BEEN_ATTEMPTED:
             return {
                 ...state,
@@ -63,6 +83,7 @@ export default function (state = initialState, action) {
                                hasVerificationBeenAttempted: action.payload.hasVerificationBeenAttempted,
                 }
             }
+        default:
+            return state;
     }
-    return state;
 }

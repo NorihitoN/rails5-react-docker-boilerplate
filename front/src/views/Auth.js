@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 const Auth = (props) => {
-    console.log(props);
     return (
         props.isSignedIn ? (props.children) : (<Redirect to='/login'/>)
     );
