@@ -4,6 +4,13 @@
 // $background-color-base: #fff;
 
 // Original
+.loading-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .lifeplan-app {
     min-height: 100vh;
     // background: linear-gradient(45deg, #6cb8ff, #fff66c, #ffa36c);
