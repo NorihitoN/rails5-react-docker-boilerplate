@@ -24,42 +24,42 @@ class Header extends React.Component {
                     <Navbar.Brand href="/">Lifeplan</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
-                    <Nav>
-                        {isSignedIn === false && 
-                        <IndexLinkContainer to="/" className="mr-2">
-                            <Nav.Link>Home</Nav.Link>
-                        </IndexLinkContainer>
-                        }
-                        {isSignedIn === false && 
-                        <LinkContainer to="/about" className="mr-2">
-                            <Nav.Link>About</Nav.Link>
-                        </LinkContainer>
-                        }
-                        {isSignedIn === false && 
-                            <LinkContainer to="/login" className="mr-2">
-                                <Nav.Link>Login</Nav.Link>
-                            </LinkContainer>
-                        }
-                        {isSignedIn === false && 
-                            <LinkContainer to="/signup" className="mr-2">
-                                <Nav.Link>Sign up</Nav.Link>
-                            </LinkContainer>
-                        }
-                        {isSignedIn === true &&
-                            <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                                <LinkContainer to="/app">
-                                    <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                        <Nav>
+                            {isSignedIn === false &&
+                                <IndexLinkContainer to="/" className="mr-2">
+                                    <Nav.Link>Home</Nav.Link>
+                                </IndexLinkContainer>
+                            }
+                            {isSignedIn === false &&
+                                <LinkContainer to="/about" className="mr-2">
+                                    <Nav.Link>About</Nav.Link>
                                 </LinkContainer>
-                                <LinkContainer to="/app/profile">
-                                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                            }
+                            {isSignedIn === false &&
+                                <LinkContainer to="/login" className="mr-2">
+                                    <Nav.Link>Login</Nav.Link>
                                 </LinkContainer>
-                                <NavDropdown.Divider />
-                                <LinkContainer to="/logout">
-                                    <NavDropdown.Item onClick={this.handleLogout}>Logout</NavDropdown.Item>
+                            }
+                            {isSignedIn === false &&
+                                <LinkContainer to="/signup" className="mr-2">
+                                    <Nav.Link>Sign up</Nav.Link>
                                 </LinkContainer>
-                            </NavDropdown>
-                        }
-                    </Nav>
+                            }
+                            {isSignedIn === true &&
+                                <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
+                                    <LinkContainer to="/app">
+                                        <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                                    </LinkContainer>
+                                    <LinkContainer to="/app/profile">
+                                        <NavDropdown.Item>Profile</NavDropdown.Item>
+                                    </LinkContainer>
+                                    <NavDropdown.Divider />
+                                    <LinkContainer to="/logout">
+                                        <NavDropdown.Item onClick={this.handleLogout}>Logout</NavDropdown.Item>
+                                    </LinkContainer>
+                                </NavDropdown>
+                            }
+                        </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
@@ -68,13 +68,13 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {
-    isSignedIn: state.auth.currentUser.isSignedIn,
-  }
+    return {
+        isSignedIn: state.auth.currentUser.isSignedIn,
+    }
 }
 
 const mapDispatchToProps = dispatch => ({
-  signOutUser: () => dispatch(signOutUser()),
+    signOutUser: () => dispatch(signOutUser()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
