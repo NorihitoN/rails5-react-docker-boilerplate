@@ -147,7 +147,10 @@ export const registerUser = (data) => (dispatch) => {
         }
         dispatch(registerRequestSucceeded(userAttributes));
     })
-    .catch(e => alert(e));
+    .catch(e => {
+            alert(e);
+            dispatch(registerRequestFailed());
+    });
 }
 
 
@@ -176,7 +179,9 @@ export const verifyToken = (verificationParams) => (dispatch) => {
         }
         dispatch(verifyTokenRequestSucceeded(userAttributes));
     })
-    .catch(e => alert(e));
+    .catch(e => {
+        dispatch(verifyTokenRequestFailed());
+    });
 }
 
 export const signInUser = (data) => (dispatch) => {
@@ -209,7 +214,10 @@ export const signInUser = (data) => (dispatch) => {
         }
         dispatch(signInRequestSucceeded(userAttributes));
     })
-    .catch(e => alert(e));
+    .catch(e => {
+        alert(e);
+        dispatch(signInRequestFailed());
+    });
 }
 
 export const signOutUser = () => (dispatch) => {
@@ -230,7 +238,10 @@ export const signOutUser = () => (dispatch) => {
             dispatch(signOutRequestSucceeded());
             return response.json();
         })
-        .catch(e => alert(e));
+        .catch(e => {
+            alert(e);
+            dispatch(signOutRequestFailed());
+        });
     }
 }
 
