@@ -9,12 +9,21 @@ services:
       - ./api:/myapp
     depends_on:
       - db
+      - test-db
+
   db:
     image: postgres
     volumes:
       - dbdata:/var/lib/postgresql/data
     ports: 
       - '5432:5432'
+  
+  test-db:
+    image: postgres  
+    volumes:  
+      - dbtest:/var/lib/postgresql/data
+    ports:  
+      - '5433:5432'  
   
   front:
     build: ./front
@@ -28,4 +37,5 @@ services:
 
 volumes:
   dbdata:
+  dbtest:
 
