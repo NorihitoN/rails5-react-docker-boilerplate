@@ -41,5 +41,8 @@ module Myapp
       g.fixture_replacement :factory_bot, dir: "spec/factories"
 
     end
+
+    # Time zone setting for ActiveSupport
+    # config.time_zone = "Tokyo"
   end
 end
