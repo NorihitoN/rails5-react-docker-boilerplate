@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :family do
-    familyname { "MyString" }
-    user { nil }
+    familyname { Faker::Name.last_name }
+    association :user, factory: :user
   end
 end
