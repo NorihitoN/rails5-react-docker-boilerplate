@@ -1,46 +1,22 @@
 import React from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import Sidebar from "../components/Sidebar.js";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faUser } from '@fortawesome/free-solid-svg-icons';
+import { MemberCard } from '../components/MemberCard.js';
+import { addMemberCard } from '../components/AddMemberCard.js'
 
 function Dashboard() {
-
+  const family = { id: 1, familyName: "中田"}
+  // const family = {}
   const members = [
-    { id: 1, name: "のり", birthday: "1985-06-26", memberColor: "blue"},
-    { id: 2, name: "梨紗", birthday: "1988-09-23", memberColor: "red"},
-    { id: 3, name: "蒼空", birthday: "2017-04-06", memberColor: "blue"},
-    { id: 4, name: "碧", birthday: "2019-05-01", memberColor: "red"},
+    // { id: 1, name: "のり", birthday: "1985-06-26", memberColor: "blue"},
+    // { id: 2, name: "梨紗", birthday: "1988-09-23", memberColor: "red"},
+    // { id: 3, name: "蒼空", birthday: "2017-04-06", memberColor: "blue"},
+    // { id: 4, name: "碧", birthday: "2019-05-01", memberColor: "red"},
   ]
 
   const familyMembers = members.map((member) => 
-    <Col md={2}>
-      <Card className="memberCard">
-        <div className="memberTile">
-          <div className="memberBox">
-            <Card.Link className="stretched-link" href="#">
-              <FontAwesomeIcon icon={faUser} className="fa-lg"/>
-            </Card.Link>
-          </div>
-        </div>
-        <p>{member.name}</p>
-      </Card>
-    </Col>
+    <MemberCard member={member} />
   )
-
-  const addMemberCard = 
-    <Col md={2}>
-      <Card className="memberCard">
-        <div className="memberTile">
-          <div className="addMemberBox">
-            <Card.Link className="stretched-link" href="#">
-              <FontAwesomeIcon icon={faPlus} className="fa-lg"/>
-            </Card.Link>
-          </div>
-        </div>
-        <p>メンバーを追加</p>
-      </Card>
-    </Col>
 
   return (
     <div className="lifemapAppView">
@@ -50,14 +26,32 @@ function Dashboard() {
           <h1 className="pageTitle">ホーム</h1>
         </div>
         <Container>
-          <div className="familySection">
-            <h2 className="sectionTitle">メンバー</h2>
-            <hr/>
-            <Row>
-              {familyMembers}
-              {addMemberCard}
-            </Row>
-          </div>
+          { (Object.keys(family).length === 0)? (
+            <div className="familyForm">
+              <h2 className="sectionTitle">家族・グループ名を登録</h2>
+              <Form>
+                <Form.Row>
+                  <Col md={3}>
+                    <Form.Control placeholder="Enter Family or Group" />
+                  </Col>
+                  <Col>
+                    <Button variant="primary" type="submit">
+                    保存 
+                    </Button>
+                  </Col>
+                </Form.Row>
+              </Form>
+            </div>
+          ) : (
+            <div className="familySection">
+              <h2 className="sectionTitle">{family.familyName}家のメンバー</h2>
+              <hr/>
+              <Row>
+                {familyMembers}
+                {addMemberCard}
+              </Row>
+            </div>
+          ) }
         </Container>
       </div>
     </div>
