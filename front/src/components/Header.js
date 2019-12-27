@@ -21,7 +21,7 @@ class Header extends React.Component {
         return (
             <Navbar className="navbar-white navbar-border" expand="lg" sticky="top">
                 <Container>
-                    <Navbar.Brand href="/">Lifeplan</Navbar.Brand>
+                    <Navbar.Brand href="/">Lifemap</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
                         <Nav>

@@ -1,15 +1,17 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import Header from "../components/Header.js";
+import Sidebar from "../components/Sidebar.js";
 
 function Profile() {
   return (
-    <div className="profile-page">
-      <Header />
-      <div className="section1">
-          <Container>
-            Profile
-          </Container>
+    <div className="lifemapAppView">
+      <Sidebar/>
+      <div className="mainPage">
+        <Container>
+          <div className="section1">
+              <h2>Profile</h2>
+          </div>
+        </Container>
       </div>
     </div>
   )
