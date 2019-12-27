@@ -120,6 +120,16 @@
 
   .topBar {
     height: 70px;
+
+    /* Button customize */
+    .btn-circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 30px;
+      font-size: 20px;
+      background-color: #fff;
+      border: none;
+    }
   }
 
   h1 {
@@ -173,6 +183,10 @@
   margin: 10px 0 0 0;
 }
 
+.addMemberLink {
+  cursor: pointer;
+}
+
 .addMemberBox {
   border-radius: 20px;
   height: 100%;
@@ -188,6 +202,8 @@
     color: #9ca6af;
   }
 }
+
+
 
 // Import Bootstrap and its default variables
 @import '~bootstrap/scss/bootstrap.scss';

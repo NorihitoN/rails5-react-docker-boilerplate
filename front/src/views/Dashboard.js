@@ -8,10 +8,10 @@ function Dashboard() {
   const family = { id: 1, familyName: "中田"}
   // const family = {}
   const members = [
-    // { id: 1, name: "のり", birthday: "1985-06-26", memberColor: "blue"},
-    // { id: 2, name: "梨紗", birthday: "1988-09-23", memberColor: "red"},
-    // { id: 3, name: "蒼空", birthday: "2017-04-06", memberColor: "blue"},
-    // { id: 4, name: "碧", birthday: "2019-05-01", memberColor: "red"},
+    { id: 1, name: "のり", birthday: "1985-06-26", memberColor: "blue"},
+    { id: 2, name: "梨紗", birthday: "1988-09-23", memberColor: "red"},
+    { id: 3, name: "蒼空", birthday: "2017-04-06", memberColor: "blue"},
+    { id: 4, name: "碧", birthday: "2019-05-01", memberColor: "red"},
   ]
 
   const familyMembers = members.map((member) => 

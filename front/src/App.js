@@ -12,6 +12,7 @@ import Dashboard from './views/Dashboard.js';
 import Profile from './views/Profile.js';
 import Auth from './views/Auth.js';
 import Member from './views/Member.js';
+import MemberForm from './views/MemberForm.js'
 import Budget from './views/Budget.js';
 import Cashflow from './views/Cashflow.js';
 import WrapperLoading from './components/WrapperLoading.js';
@@ -33,6 +34,7 @@ class App extends Component {
                         <Switch>
                             <Route exact path="/app" component={Dashboard} />
                             <Route exact path="/app/members" component={Member} />
+                            <Route exact path="/app/members/new" component={MemberForm} />
                             <Route exact path="/app/budget" component={Budget} />
                             <Route exact path="/app/cashflow" component={Cashflow} />
                             <Route exact path="/app/profile" component={Profile} />
