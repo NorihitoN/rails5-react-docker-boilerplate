@@ -1,5 +1,5 @@
-module api
-    module v1
+module Api
+    module V1
         class MembersController < ApplicationController
             before_action :authenticate_user!
 
