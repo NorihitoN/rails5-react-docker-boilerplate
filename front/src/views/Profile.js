@@ -1,20 +1,44 @@
-import React from 'react';
-import { Container } from 'react-bootstrap';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Container, Tabs, Tab, Button } from 'react-bootstrap';
+import { signOutUser } from '../actions/auth';
 import Sidebar from "../components/Sidebar.js";
 
-function Profile() {
-  return (
-    <div className="lifemapAppView">
-      <Sidebar/>
-      <div className="mainPage">
-        <Container>
-          <div className="section1">
-              <h2>Profile</h2>
+class Profile extends Component {
+  constructor(props) {
+    super(props);
+    this.handleSignout = this.handleSignout.bind(this);
+  }
+
+  handleSignout() {
+    this.props.signOutUser();
+  }
+
+  render() {
+    return(
+      <div className="lifemapAppView">
+        <Sidebar/>
+        <div className="mainPage">
+          <div className="topBar">
+            <h1 className="pageTitle">プロフィール設定</h1>
           </div>
-        </Container>
+          <Container>
+            <Tabs defaultActiveKey="account" id="tab-example">
+              <Tab eventKey="account" title="Account">
+                <Button variant="primary" onClick={this.handleSignout}>
+                  Log Out
+                </Button>
+              </Tab>
+            </Tabs>
+          </Container>
+        </div>
       </div>
-    </div>
-  )
+    );
+  }
 }
 
-export default Profile;
+const mapDispatchToProps = dispatch => ({
+  signOutUser: () => dispatch(signOutUser()),
+})
+
+export default connect(null, mapDispatchToProps)(Profile);
