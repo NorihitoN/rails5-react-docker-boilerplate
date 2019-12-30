@@ -5,11 +5,14 @@ import { faUser} from '@fortawesome/free-solid-svg-icons';
 
 export function MemberCard(props) {
   const member = props.member;
+  const memberBoxStyle = {
+    backgroundColor: member.memberColor,
+  }
   return(
     <Col md={2}>
       <Card className="memberCard">
         <div className="memberTile">
-          <div className="memberBox">
+          <div className="memberBox" style={memberBoxStyle}>
             <Card.Link className="stretched-link" href="#">
               <FontAwesomeIcon icon={faUser} className="fa-lg"/>
             </Card.Link>
