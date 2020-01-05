@@ -15,7 +15,7 @@ import Member from './views/Member.js';
 import MemberForm from './views/MemberForm.js'
 import Budget from './views/Budget.js';
 import Cashflow from './views/Cashflow.js';
-import WrapperLoading from './components/WrapperLoading.js';
+// import WrapperLoading from './components/WrapperLoading.js';
 
 const history = createBrowserHistory({});
 

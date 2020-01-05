@@ -104,6 +104,13 @@
   font-size: 14px;
 }
 
+.sidebar-view a.active {
+  color: #cbd4db;
+  background-color: #444951;
+  font-weight: 400;
+  display: block;
+  font-size: 14px;
+}
 /* When you mouse over the navigation links, change their color */
 .sidebar-view a:hover {
   background-color: #444951;

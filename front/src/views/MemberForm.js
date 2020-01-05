@@ -109,7 +109,7 @@ class MemberForm extends Component {
                             type="radio"
                             label="子供"
                             name="formHorizontalRadios2"
-                            id="formHorizontalRadios22"
+                            id="formHorizontalRadios23"
                           />
                         </Col>
                       </Form.Group>
