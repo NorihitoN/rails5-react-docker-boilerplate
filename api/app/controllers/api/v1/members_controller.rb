@@ -3,8 +3,17 @@ module Api
         class MembersController < ApplicationController
             before_action :authenticate_user!
 
+            def index
+                members = current_api_user.family.members
+
+                render json: {
+                    members: members,
+                    is_success: true
+                }, status: :ok
+            end
+
             def show 
-                member = current_user.family.member
+                member = current_api_user.family.member.find(params[:id])
 
                 render json: {
                     member: member,
@@ -13,7 +22,7 @@ module Api
             end
 
             def create
-                member = current_user.family.build(member_params)
+                member = current_api_user.family.members.build(member_params)
 
                 if member.save
                     render json: { is_success: true }, status: :ok
@@ -25,13 +34,20 @@ module Api
             end
 
             def update
-                member = current_user.family.member
+                member = current_api_user.family.member.find(params[:id])
 
                 if member.update(member_params)
                     render json: { is_success: true }, status: :ok
             end
 
             def destroy
+                member = current_api_user.family.member.find(params[:id])
+
+                if member.destroy
+                    render json: { is_success: true }, status: :ok
+                else
+                    render json: { error: "Member was not deleted.", is_success: false}, status: 404
+                end
             end
 
             private
