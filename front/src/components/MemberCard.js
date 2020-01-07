@@ -18,7 +18,7 @@ export function MemberCard(props) {
             </Card.Link>
           </div>
         </div>
-        <p className="memberName">{member.name}</p>
+        <p className="memberName">{member.member_name}</p>
       </Card>
     </Col>
   );

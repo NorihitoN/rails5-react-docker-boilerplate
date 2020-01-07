@@ -3,6 +3,8 @@ import { Button, Form, Container, Row, Col, Card } from 'react-bootstrap';
 import Sidebar from "../components/Sidebar.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux';
+import { saveMember } from '../actions/member.js';
 
 class MemberForm extends Component {
   constructor(props) {
@@ -19,8 +21,12 @@ class MemberForm extends Component {
     });
   }
 
-  handleSave() {
-    console.log("Save member");
+  handleSave(e) {
+    e.preventDefault();
+    // save member action here.
+    console.log(this.state);
+    this.props.saveMember(this.state);
+    this.handleBack();
   }
 
   handleBack() {
@@ -75,14 +81,18 @@ class MemberForm extends Component {
                           <Form.Check inline
                             type="radio"
                             label="男性"
-                            name="formHorizontalRadios1"
+                            name="memberGender"
                             id="formHorizontalRadios1"
+                            value="male"
+                            onChange={this.handleInputChange}
                           />
                           <Form.Check inline
                             type="radio"
                             label="女性"
-                            name="formHorizontalRadios1"
+                            name="memberGender"
                             id="formHorizontalRadios2"
+                            value="female"
+                            onChange={this.handleInputChange}
                           />
                         </Col>
                       </Form.Group>
@@ -96,25 +106,31 @@ class MemberForm extends Component {
                           <Form.Check inline
                             type="radio"
                             label="本人"
-                            name="formHorizontalRadios2"
+                            name="memberRelation"
                             id="formHorizontalRadios21"
+                            value="self"
+                            onChange={this.handleInputChange}
                           />
                           <Form.Check inline
                             type="radio"
                             label="配偶者"
-                            name="formHorizontalRadios2"
+                            name="memberRelation"
                             id="formHorizontalRadios22"
+                            value="spouse"
+                            onChange={this.handleInputChange}
                           />
                           <Form.Check inline
                             type="radio"
                             label="子供"
-                            name="formHorizontalRadios2"
+                            name="memberRelation"
                             id="formHorizontalRadios23"
+                            value="child"
+                            onChange={this.handleInputChange}
                           />
                         </Col>
                       </Form.Group>
                     </fieldset>
-                    <Button variant="primary" onClick={this.handleSave}>
+                    <Button variant="primary" onClick={e => this.handleSave(e)}>
                       保存
                     </Button>
                   </Form>
@@ -129,4 +145,8 @@ class MemberForm extends Component {
   }
 }
 
-export default MemberForm;
+const mapDispatchToProps = dispatch => ({
+  saveMember: (data) => dispatch(saveMember(data)),
+})
+
+export default connect(null, mapDispatchToProps)(MemberForm);

@@ -1,24 +1,15 @@
 import { HOST } from "../constants";
 
-export const SET_FAMILY = 'SET_FAMILY';
+export const SET_MEMBERS = 'SET_MEMBERS';
 
-export function setFamily(family) {
+export function setMembers(members) {
   return {
-    type: SET_FAMILY,
-    family
+    type: SET_MEMBERS,
+    members
   }
 }
 
-export const verificationHeaders = () => {
-  const headers = new Headers();
-  headers.append('access-token', localStorage.getItem('access-token').toString());
-  headers.append('uid', localStorage.getItem('uid').toString());
-  headers.append('client', localStorage.getItem('client').toString());
-  headers.append('expiry', localStorage.getItem('expiry').toString());
-  return headers;
-}
-
-export function getFamily() {
+export function getMembers() {
   return (dispatch) => {
 
     if(localStorage.getItem('access-token')) {
@@ -28,16 +19,15 @@ export function getFamily() {
       verificationHeaders.append('uid', localStorage.getItem('uid').toString());
       verificationHeaders.append('client', localStorage.getItem('client').toString());
       verificationHeaders.append('expiry', localStorage.getItem('expiry').toString());
-        // const verificationHeaders = verificationHeaders();
 
-      return fetch(`${HOST}/api/v1/families`, {
+      return fetch(`${HOST}/api/v1/members`, {
         method: 'GET',
         headers: verificationHeaders,
       })
       .then(response => response.json())
       .then(json => {
         if(json.is_success) {
-          dispatch(setFamily(json.family));
+          dispatch(setMembers(json.members));
         } else {
           alert(json.error);
         }
@@ -49,7 +39,7 @@ export function getFamily() {
   }
 }
 
-export function updateFamily(data) {
+export function updateMember(data) {
   return (dispatch) => {
 
     if(localStorage.getItem('access-token')) {
@@ -60,17 +50,20 @@ export function updateFamily(data) {
       verificationHeaders.append('client', localStorage.getItem('client').toString());
       verificationHeaders.append('expiry', localStorage.getItem('expiry').toString());
 
-      return fetch(`${HOST}/api/v1/families`, {
+      return fetch(`${HOST}/api/v1/members`, {
         method: 'PUT',
         body: JSON.stringify({
-          familyname: data.familyName,
+          member_name: data.memberName,
+          member_relation: data.memberRelation,
+          member_birthday: data.memberBirthday,
+          member_gender: data.memberGender,
         }),
         headers: verificationHeaders,
       })
-      .then(response => response.json)
+      .then(response => response.json())
       .then(json => {
         if(json.is_success) {
-          dispatch(getFamily());
+          dispatch(getMembers());
         } else {
           alert(json.error);
         }
@@ -82,9 +75,9 @@ export function updateFamily(data) {
   }
 }
 
-export function saveFamily(data) {
+export function saveMember(data) {
   return (dispatch) => {
-    console.log("saveFamily clicked");
+    console.log("saveMembers clicked");
 
     if(localStorage.getItem('access-token')) {
 
@@ -95,17 +88,20 @@ export function saveFamily(data) {
       verificationHeaders.append('expiry', localStorage.getItem('expiry').toString());
       verificationHeaders.append('content-type', 'application/json');
       
-      return fetch(`${HOST}/api/v1/families`, {
+      return fetch(`${HOST}/api/v1/members`, {
         method: 'POST',
         body: JSON.stringify({
-          familyname: data.familyName,
+          member_name: data.memberName,
+          member_relation: data.memberRelation,
+          member_birthday: data.memberBirthday,
+          member_gender: data.memberGender,
         }),
         headers: verificationHeaders,
       })
       .then(response => response.json())
       .then(json => {
         if(json.is_success) {
-          dispatch(getFamily());
+          dispatch(getMembers());
         } else {
           alert(json.error);
         }
@@ -117,7 +113,7 @@ export function saveFamily(data) {
   }
 }
 
-export function deleteFamily(item) {
+export function deleteMember(item) {
   return (dispatch) => {
     if(localStorage.getItem('access-token')) {
 
@@ -127,14 +123,14 @@ export function deleteFamily(item) {
       verificationHeaders.append('client', localStorage.getItem('client').toString());
       verificationHeaders.append('expiry', localStorage.getItem('expiry').toString());
 
-      return fetch(`${HOST}/api/v1/families/${item.id}`, {
+      return fetch(`${HOST}/api/v1/members/${item.id}`, {
         method: 'DELETE',
         headers: verificationHeaders,
       })
       .then(response => response.json())
       .then(json => {
         if(json.is_success) {
-          dispatch(getFamily());
+          dispatch(getMembers());
         } else {
           alert(json.error);
         }

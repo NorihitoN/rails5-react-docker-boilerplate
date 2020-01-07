@@ -1,7 +1,7 @@
 module Api
     module V1
         class MembersController < ApplicationController
-            before_action :authenticate_user!
+            before_action :authenticate_api_user!
 
             def index
                 members = current_api_user.family.members
@@ -13,7 +13,7 @@ module Api
             end
 
             def show 
-                member = current_api_user.family.member.find(params[:id])
+                member = current_api_user.family.members.find(params[:id])
 
                 render json: {
                     member: member,
@@ -34,10 +34,11 @@ module Api
             end
 
             def update
-                member = current_api_user.family.member.find(params[:id])
+                member = current_api_user.family.members.find(params[:id])
 
                 if member.update(member_params)
                     render json: { is_success: true }, status: :ok
+                end
             end
 
             def destroy
@@ -52,7 +53,7 @@ module Api
 
             private
                 def member_params
-                    params.require(:member).permit(:member_name, :member_relation, :membar_birthday, :member_gender)
+                    params.require(:member).permit(:member_name, :member_relation, :member_birthday, :member_gender)
                 end
         end
     end

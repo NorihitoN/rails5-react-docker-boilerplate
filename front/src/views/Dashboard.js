@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { saveFamily, getFamily } from '../actions/family.js';
+import { getMembers } from '../actions/member.js';
 import Sidebar from "../components/Sidebar.js";
 import { MemberCard } from '../components/MemberCard.js';
 import { addMemberCard } from '../components/AddMemberCard.js'
@@ -16,6 +17,7 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.props.getFamily();
+    this.props.getMembers();
   };
 
   handleInputChange(e) {
@@ -30,17 +32,9 @@ class Dashboard extends Component {
   }
 
   render() {
-    // const family = { id: 1, familyName: "中田"}
-    const { family } = this.props;
-    const members = [
-      // { id: 1, name: "のり", birthday: "1985-06-26", memberColor: "#4186e0"},
-      // { id: 2, name: "梨紗", birthday: "1988-09-23", memberColor: "#ea4d9e"},
-      // { id: 3, name: "蒼空", birthday: "2017-04-06", memberColor: "#4186e0"},
-      // { id: 4, name: "碧", birthday: "2019-05-01", memberColor: "#ea4d9e"},
-    ]
-
-    const familyMembers = members.map((member) => 
-      <MemberCard member={member} />
+    const { family, members } = this.props;
+    const familyMembers = members.members.map((member) => 
+      <MemberCard key={member.id.toString()} member={member} />
     )
 
     return (
@@ -91,11 +85,13 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => ({
   family: state.family,
+  members: state.members,
 })
 
 const mapDispatchToProps = dispatch => ({
   saveFamily: (data) => dispatch(saveFamily(data)),
   getFamily: () => dispatch(getFamily()),
+  getMembers: () => dispatch(getMembers()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
