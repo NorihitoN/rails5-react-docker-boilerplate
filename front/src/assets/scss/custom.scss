@@ -82,9 +82,12 @@
 .sidebar-view {
   height: 100vh; /* 100% Full-height */
   width: 290px; /* 0 width - change this with JavaScript */
-  // position: fixed; /* Stay in place */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
   background-color: #151b26; /* Black*/
-  // overflow-x: hidden; /* Disable horizontal scroll */
+  overflow-x: hidden; /* Disable horizontal scroll */
   // transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
 }
 
@@ -122,8 +125,8 @@
 
 /* Main Pange for protected views such as Dashboard, Members, Cashflow, Budget */
 .mainPage {
-  height: 100vh; /* 100% Full-height */
   width: 100vw;
+  margin-left: 290px;
 
   .topBar {
     height: 70px;
@@ -211,6 +214,12 @@
 }
 
 
+.card.memberProfile{
+  min-width: 150px;
+  height: 180px;
+  border: none;
+  padding: 15px;
+}
 
 // Import Bootstrap and its default variables
 @import '~bootstrap/scss/bootstrap.scss';

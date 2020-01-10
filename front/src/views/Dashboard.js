@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { saveFamily, getFamily } from '../actions/family.js';
@@ -44,8 +44,8 @@ class Dashboard extends Component {
           <div className="topBar">
             <h1 className="pageTitle">ホーム</h1>
           </div>
-          <Container>
             { (family.family === null)? (
+            <Container>
               <div className="familyForm">
                 <h2 className="sectionTitle">家族・グループ名を登録</h2>
                 <Form>
@@ -66,17 +66,25 @@ class Dashboard extends Component {
                   </Form.Row>
                 </Form>
               </div>
+            </Container>
             ) : (
-              <div className="familySection">
-                <h2 className="sectionTitle">{family.family.familyname}家のメンバー</h2>
-                <hr/>
-                <Row>
-                  {familyMembers}
-                  {addMemberCard}
-                </Row>
-              </div>
+              <Fragment>
+                <Container>
+                  <div className="familySection">
+                    <h2 className="sectionTitle">{family.family.familyname}家のメンバー</h2>
+                    <hr/>
+                  </div>
+                </Container>
+                <div>
+                  <Container>
+                    <Row>
+                      {familyMembers}
+                      {addMemberCard}
+                    </Row>
+                  </Container>
+                </div>
+              </Fragment>
             ) }
-          </Container>
         </div>
       </div>
     )
