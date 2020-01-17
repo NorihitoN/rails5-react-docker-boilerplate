@@ -7,7 +7,7 @@ module Api
                 members = current_api_user.family.members
 
                 render json: {
-                    members: members,
+                    members: members.map{ |member| member.attributes.merge(fiscal_age: member.fiscal_age)},
                     is_success: true
                 }, status: :ok
             end
@@ -16,7 +16,7 @@ module Api
                 member = current_api_user.family.members.find(params[:id])
 
                 render json: {
-                    member: member,
+                    member: member.attributes.merge(fiscal_age: member.fiscal_age),
                     is_success: true
                 }, status: :ok
             end

@@ -45,7 +45,7 @@ class Header extends React.Component {
                                     <Nav.Link>Sign up</Nav.Link>
                                 </LinkContainer>
                             }
-                            {isSignedIn === true &&
+                            {/* {isSignedIn === true &&
                                 <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                                     <LinkContainer to="/app">
                                         <NavDropdown.Item>Dashboard</NavDropdown.Item>
@@ -58,7 +58,7 @@ class Header extends React.Component {
                                         <NavDropdown.Item onClick={this.handleLogout}>Logout</NavDropdown.Item>
                                     </LinkContainer>
                                 </NavDropdown>
-                            }
+                            } */}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
