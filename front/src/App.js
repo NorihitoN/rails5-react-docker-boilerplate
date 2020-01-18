@@ -4,17 +4,17 @@ import { createBrowserHistory } from 'history'
 import { Provider } from 'react-redux';
 import store from './store/configureStore';
 
-import Home from './views/Home.js';
-import About from './views/About.js';
-import Signup from './views/Signup.js';
-import Login from './views/Login.js';
-import Dashboard from './views/Dashboard.js';
-import Profile from './views/Profile.js';
-import Auth from './views/Auth.js';
-import Member from './views/Member.js';
-import MemberForm from './views/MemberForm.js'
-import Budget from './views/Budget.js';
-import Cashflow from './views/Cashflow.js';
+import Home from './views/Home';
+import About from './views/About';
+import Signup from './views/Signup';
+import Login from './views/Login';
+import Dashboard from './views/Dashboard';
+import Profile from './views/Profile';
+import Auth from './views/Auth';
+import Member from './views/Member';
+import MemberForm from './views/MemberForm';
+import Budget from './views/Budget';
+import Cashflow from './views/Cashflow';
 // import WrapperLoading from './components/WrapperLoading.js';
 
 const history = createBrowserHistory({});
