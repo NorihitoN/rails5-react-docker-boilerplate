@@ -6,6 +6,7 @@ class Member < ApplicationRecord
   # validate :birthday_is_valid
 
   has_many :incomes
+  has_many :expenses
 
   def birthday_is_valid
     # Check if input birthday is valide date
