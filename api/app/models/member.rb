@@ -5,6 +5,8 @@ class Member < ApplicationRecord
   validates :member_name, :member_birthday, :member_relation, :member_gender, presence: true
   # validate :birthday_is_valid
 
+  has_many :incomes
+
   def birthday_is_valid
     # Check if input birthday is valide date
     if member_birthday.present? && !Date.parse(member_birthday)
