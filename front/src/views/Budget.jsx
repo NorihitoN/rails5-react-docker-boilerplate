@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Tabs, Tab, Button, Table, Dropdown} from 'react-bootstrap';
+import { Container, Tabs, Tab, Button, DropdownButton, ButtonGroup, Table, Dropdown} from 'react-bootstrap';
 import Sidebar from "../components/Sidebar";
 
 class Budget extends Component {
@@ -24,17 +24,18 @@ class Budget extends Component {
                   <div className="income-section">
                     <h2>収入</h2>
                     <div className="income-input-area">
-                      <Dropdown>
-                        <Dropdown.Toggle id="dropdown-basic">
-                          入力
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                          <Dropdown.Item href="#/action-1">給与収入</Dropdown.Item>
-                          <Dropdown.Item href="#/action-2">事業収入</Dropdown.Item>
-                          <Dropdown.Item href="#/action-3">その他（定期的）</Dropdown.Item>
-                          <Dropdown.Item href="#/action-4">その他（一時金）</Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
+                      <Button className="rounded-pill">給与収入</Button>{'  '}
+                      <DropdownButton
+                        as={ButtonGroup}
+                        id="dropdown-income-button"
+                        variant="primary"
+                        title="その他収入"
+                      >
+                        <Dropdown.Item eventKey="1">事業収入</Dropdown.Item>
+                        <Dropdown.Item eventKey="2">不動産収入</Dropdown.Item>
+                        <Dropdown.Item eventKey="3">その他（定期）</Dropdown.Item>
+                        <Dropdown.Item eventKey="4">その他（一時金）</Dropdown.Item>
+                      </DropdownButton>{' '}    
                     </div>
                     <div className="income-table">
                       <Table responsive size="sm">
@@ -77,22 +78,23 @@ class Budget extends Component {
                       </Table>
                     </div>
                   </div>
-                  <div className="expense-seciton">
+                  n<div className="expense-seciton">
                     <h2>支出</h2>
                     <div className="expense-input-area">
-                      <Dropdown>
-                        <Dropdown.Toggle id="dropdown-basic">
-                          入力
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                          <Dropdown.Item href="#/action-1">固定費</Dropdown.Item>
-                          <Dropdown.Item href="#/action-2">住宅費用</Dropdown.Item>
-                          <Dropdown.Item href="#/action-3">生活費</Dropdown.Item>
-                          <Dropdown.Item href="#/action-4">その他（定期的）</Dropdown.Item>
-                          <Dropdown.Item href="#/action-5">その他（一時金）</Dropdown.Item>
-                          <Dropdown.Item href="#/action-6">夢資金</Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
+                      <Button className="rounded-pill">住宅費用</Button>{'  '}
+                      <Button className="rounded-pill">教育費</Button>{'  '}
+                      <Button className="rounded-pill">夢資金</Button>{'  '}
+                      <DropdownButton
+                        as={ButtonGroup}
+                        id="dropdown-income-button"
+                        variant="primary"
+                        title="その他支出"
+                      >
+                        <Dropdown.Item href="#/action-1">固定費</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2">生活費</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">その他（定期的）</Dropdown.Item>
+                        <Dropdown.Item href="#/action-4">その他（一時金）</Dropdown.Item>
+                      </DropdownButton>{'  '}    
                     </div>
                     <div className="expense-table">
                       <Table responsive size="sm">
