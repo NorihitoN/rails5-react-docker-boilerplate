@@ -10,20 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200124155016) do
+ActiveRecord::Schema.define(version: 20200125153449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "expenses", force: :cascade do |t|
-    t.integer "expense_value"
-    t.integer "expense_year"
-    t.integer "expense_type"
-    t.text "expense_memo"
-    t.bigint "member_id"
+  create_table "categories", force: :cascade do |t|
+    t.string "category_name"
+    t.boolean "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.integer "start_value"
+    t.integer "start_year"
+    t.integer "end_year"
+    t.bigint "member_id"
+    t.bigint "category_id"
+    t.bigint "subcategory_id"
+    t.integer "interval_year"
+    t.float "interest_rate"
+    t.string "event_memo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_events_on_category_id"
+    t.index ["member_id"], name: "index_events_on_member_id"
+    t.index ["subcategory_id"], name: "index_events_on_subcategory_id"
+  end
+
+  create_table "expenses", force: :cascade do |t|
+    t.integer "expense_value"
+    t.bigint "category_id"
+    t.integer "expense_year"
+    t.bigint "member_id"
+    t.bigint "subcategory_id"
+    t.bigint "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_expenses_on_category_id"
+    t.index ["event_id"], name: "index_expenses_on_event_id"
     t.index ["member_id"], name: "index_expenses_on_member_id"
+    t.index ["subcategory_id"], name: "index_expenses_on_subcategory_id"
   end
 
   create_table "families", force: :cascade do |t|
@@ -36,13 +64,17 @@ ActiveRecord::Schema.define(version: 20200124155016) do
 
   create_table "incomes", force: :cascade do |t|
     t.integer "income_value"
+    t.bigint "category_id"
     t.integer "income_year"
-    t.integer "income_type"
-    t.text "income_memo"
     t.bigint "member_id"
+    t.bigint "subcategory_id"
+    t.bigint "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_incomes_on_category_id"
+    t.index ["event_id"], name: "index_incomes_on_event_id"
     t.index ["member_id"], name: "index_incomes_on_member_id"
+    t.index ["subcategory_id"], name: "index_incomes_on_subcategory_id"
   end
 
   create_table "members", force: :cascade do |t|
@@ -54,6 +86,14 @@ ActiveRecord::Schema.define(version: 20200124155016) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["family_id"], name: "index_members_on_family_id"
+  end
+
+  create_table "subcategories", force: :cascade do |t|
+    t.string "subcategory_name"
+    t.bigint "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_subcategories_on_category_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -79,8 +119,18 @@ ActiveRecord::Schema.define(version: 20200124155016) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "events", "categories"
+  add_foreign_key "events", "members"
+  add_foreign_key "events", "subcategories"
+  add_foreign_key "expenses", "categories"
+  add_foreign_key "expenses", "events"
   add_foreign_key "expenses", "members"
+  add_foreign_key "expenses", "subcategories"
   add_foreign_key "families", "users"
+  add_foreign_key "incomes", "categories"
+  add_foreign_key "incomes", "events"
   add_foreign_key "incomes", "members"
+  add_foreign_key "incomes", "subcategories"
   add_foreign_key "members", "families"
+  add_foreign_key "subcategories", "categories"
 end

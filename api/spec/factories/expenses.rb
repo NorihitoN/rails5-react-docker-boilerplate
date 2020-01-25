@@ -1,9 +1,10 @@
 FactoryBot.define do
   factory :expense do
     expense_value { 1 }
+    category { nil }
     expense_year { 1 }
-    expense_type { 1 }
-    expense_memo { "MyText" }
     member { nil }
+    subcategory { nil }
+    event { nil }
   end
 end

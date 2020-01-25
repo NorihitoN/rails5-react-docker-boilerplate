@@ -1,8 +1,10 @@
 FactoryBot.define do
   factory :income do
     income_value { 1 }
+    category { nil }
     income_year { 1 }
-    income_memo { "MyText" }
     member { nil }
+    subcategory { nil }
+    event { nil }
   end
 end

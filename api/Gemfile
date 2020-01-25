@@ -48,6 +48,9 @@ group :development do
   # Beautiful format on rails console
   gem 'pry-rails'
   gem 'awesome_print'
+
+  # code completion, intellisense
+  gem 'solargraph'
   
 end
 
