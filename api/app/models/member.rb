@@ -6,6 +6,7 @@ class Member < ApplicationRecord
             :member_relation, :member_gender, presence: true
   # validate :birthday_is_valid
 
+  has_many :events, dependent: :destroy
   has_many :incomes, dependent: :destroy
   has_many :expenses, dependent: :destroy
 
