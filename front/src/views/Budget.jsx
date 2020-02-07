@@ -15,6 +15,11 @@ import Sidebar from "../components/Sidebar";
 class Budget extends Component {
   constructor(props) {
     super(props);
+    this.handleToEventForm= this.handleToEventForm.bind(this);
+  }
+
+  handleToEventForm() {
+    this.props.history.push('/app/event/new');
   }
 
   render() {
@@ -39,6 +44,9 @@ class Budget extends Component {
                     <div className="income-input-area">
                       <Button className="rounded-pill">給与収入</Button>
                       {"  "}
+                      <Button
+                        onClick={this.handleToEventForm}
+                        >イベント追加</Button>
                     </div>
                     <div className="income-table">
                       <Table responsive size="sm">
