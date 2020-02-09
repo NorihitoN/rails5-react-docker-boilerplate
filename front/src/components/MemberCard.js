@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Card } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser} from '@fortawesome/free-solid-svg-icons';
 
@@ -9,17 +9,15 @@ export function MemberCard(props) {
     backgroundColor: member.memberColor,
   }
   return(
-    <Col md={2}>
-      <Card className="memberCard">
-        <div className="memberTile">
-          <div className="memberBox" style={memberBoxStyle}>
-            <Card.Link className="stretched-link" href="#">
-              <FontAwesomeIcon icon={faUser} className="fa-lg"/>
-            </Card.Link>
-          </div>
+    <Card className="memberCard">
+      <div className="memberTile">
+        <div className="memberBox" style={memberBoxStyle}>
+          <Card.Link className="stretched-link" href="#">
+            <FontAwesomeIcon icon={faUser} className="fa-lg"/>
+          </Card.Link>
         </div>
-        <p className="memberName">{member.member_name}</p>
-      </Card>
-    </Col>
+      </div>
+      <p className="memberName">{member.member_name}</p>
+    </Card>
   );
 }

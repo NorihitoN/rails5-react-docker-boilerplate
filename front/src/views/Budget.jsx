@@ -8,9 +8,14 @@ import {
   DropdownButton,
   ButtonGroup,
   Table,
-  Dropdown
+  Dropdown,
+  CardDeck,
+  Card,
+  Row,
+  Col
 } from "react-bootstrap";
 import Sidebar from "../components/Sidebar";
+import { EventCard } from "../components/EventCard";
 
 class Budget extends Component {
   constructor(props) {
@@ -42,103 +47,25 @@ class Budget extends Component {
                   <div className="income-section">
                     <h2>収入</h2>
                     <div className="income-input-area">
-                      <Button className="rounded-pill">給与収入</Button>
-                      {"  "}
-                      <Button
-                        onClick={this.handleToEventForm}
-                        >イベント追加</Button>
+                      <Row>
+                        <Col md={2}>
+                          <EventCard />
+                        </Col>
+                        <Col md={2}>
+                          <EventCard />
+                        </Col>
+                        <Col md={2}>
+                          <EventCard />
+                        </Col>
+                        <Col md={2}>
+                          <EventCard />
+                        </Col>
+                        <Col md={2}>
+                          <EventCard />
+                        </Col>
+                      </Row>
                     </div>
-                    <div className="income-table">
-                      <Table responsive size="sm">
-                        <thead>
-                          <tr>
-                            <th>種類</th>
-                            <th>開始年齢（歳）</th>
-                            <th>終了年齢（歳）</th>
-                            <th>年収（万円）</th>
-                            <th>変動率（%）</th>
-                            <th>内容</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                          </tr>
-                          <tr>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                          </tr>
-                          <tr>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                          </tr>
-                        </tbody>
-                      </Table>
-                    </div>
-                  </div>
-                  <div className="expense-seciton">
                     <h2>支出</h2>
-                    <div className="expense-input-area">
-                      <Button className="rounded-pill">住宅費用</Button>
-                      {"  "}
-                      <Button className="rounded-pill">教育費</Button>
-                      {"  "}
-                      <Button className="rounded-pill">夢資金</Button>
-                      {"  "}
-                    </div>
-                    <div className="expense-table">
-                      <Table responsive size="sm">
-                        <thead>
-                          <tr>
-                            <th>種類</th>
-                            <th>開始年齢（歳）</th>
-                            <th>終了年齢（歳）</th>
-                            <th>支出（万円）</th>
-                            <th>変動率（%）</th>
-                            <th>内容</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                          </tr>
-                          <tr>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                          </tr>
-                          <tr>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                          </tr>
-                        </tbody>
-                      </Table>
-                    </div>
                   </div>
                 </Tab>
               ))}
