@@ -49,20 +49,15 @@ class Budget extends Component {
                     <div className="income-input-area">
                       <Row>
                         <Col md={2}>
-                          <EventCard />
+                          <Card className="eventCard" style={{ marginBottom: "15px" }}>
+                            <div className="eventBox">
+                              <Card.Body>
+                                <Button onClick={this.handleToEventForm}>追加</Button>
+                              </Card.Body>
+                            </div>
+                          </Card>
                         </Col>
-                        <Col md={2}>
-                          <EventCard />
-                        </Col>
-                        <Col md={2}>
-                          <EventCard />
-                        </Col>
-                        <Col md={2}>
-                          <EventCard />
-                        </Col>
-                        <Col md={2}>
-                          <EventCard />
-                        </Col>
+                        { [...Array(8)].map((_, i) => <Col md={2} key={i}><EventCard /></Col>) }
                       </Row>
                     </div>
                     <h2>支出</h2>
