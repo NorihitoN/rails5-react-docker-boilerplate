@@ -10,7 +10,10 @@ module Api
       current_member = Member.find(params[:member_id])
       events = current_member.events
       render json: {
-        events: events,
+        member_events: {
+          member_id: current_member.id,
+          events: events
+        },
         is_success: true
       }, status: :ok
     end

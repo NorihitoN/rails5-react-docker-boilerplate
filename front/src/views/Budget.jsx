@@ -14,21 +14,30 @@ import {
   Row,
   Col
 } from "react-bootstrap";
+import { getEvents } from "../actions/event";
 import Sidebar from "../components/Sidebar";
 import { EventCard } from "../components/EventCard";
 
 class Budget extends Component {
   constructor(props) {
     super(props);
-    this.handleToEventForm= this.handleToEventForm.bind(this);
+    this.handleToEventForm = this.handleToEventForm.bind(this);
+  }
+
+  componentDidMount() {
+    const { members } = this.props;
+    members.members.map(member => {
+      this.props.getEvents(member.id);
+    });
   }
 
   handleToEventForm() {
-    this.props.history.push('/app/event/new');
+    this.props.history.push("/app/event/new");
   }
 
   render() {
-    const { members } = this.props;
+    const { members, events } = this.props;
+
     return (
       <div className="lifemapAppView">
         <Sidebar />
@@ -49,15 +58,30 @@ class Budget extends Component {
                     <div className="income-input-area">
                       <Row>
                         <Col md={2}>
-                          <Card className="eventCard" style={{ marginBottom: "15px" }}>
+                          <Card
+                            className="eventCard"
+                            style={{ marginBottom: "15px" }}
+                          >
                             <div className="eventBox">
                               <Card.Body>
-                                <Button onClick={this.handleToEventForm}>追加</Button>
+                                <Button onClick={this.handleToEventForm}>
+                                  追加
+                                </Button>
                               </Card.Body>
                             </div>
                           </Card>
                         </Col>
-                        { [...Array(8)].map((_, i) => <Col md={2} key={i}><EventCard /></Col>) }
+                        {events.events.filter(
+                          data => data.member_id === member.id
+                        ).length
+                          ? events.events
+                              .filter(data => data.member_id === member.id)[0]
+                              .events.map((event, i) => (
+                                <Col md={2} key={i}>
+                                  <EventCard event={event}/>
+                                </Col>
+                              ))
+                          : null}
                       </Row>
                     </div>
                     <h2>支出</h2>
@@ -73,7 +97,12 @@ class Budget extends Component {
 }
 
 const mapStateToProps = state => ({
-  members: state.members
+  members: state.members,
+  events: state.events
 });
 
-export default connect(mapStateToProps)(Budget);
+const mapDispatchToProps = dispatch => ({
+  getEvents: data => dispatch(getEvents(data))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Budget);

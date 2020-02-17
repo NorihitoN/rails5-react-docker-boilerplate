@@ -2,6 +2,8 @@ import {
     SET_MEMBERS,
 } from '../actions/member';
 
+// import { SET_EVENTS } from '../action/event';
+
 
 const initialState = {
     members: [],

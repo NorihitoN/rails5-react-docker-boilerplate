@@ -34,8 +34,8 @@ class Dashboard extends Component {
   render() {
     const { family, members } = this.props;
     const familyMembers = members.members.map((member) => 
-      <Col md={2}>
-        <MemberCard key={member.id.toString()} member={member} />
+      <Col md={2} key={member.id.toString()}>
+        <MemberCard member={member} />
       </Col>
     )
 
