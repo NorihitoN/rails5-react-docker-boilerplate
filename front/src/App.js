@@ -18,6 +18,7 @@ import EventForm from "./views/EventForm";
 import Cashflow from "./views/Cashflow";
 // import WrapperLoading from './components/WrapperLoading.js';
 
+// historyを取得するためび withRouter を使用する必要はない
 const history = createBrowserHistory({});
 
 class App extends Component {

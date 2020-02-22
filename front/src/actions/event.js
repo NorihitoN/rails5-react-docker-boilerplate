@@ -12,7 +12,7 @@ export function setEvents(events) {
 // getMember, getEventのアクションが実行されたことがわかるため、
 // console.log("test is ok")という対応になる。auth.jsを参照
 
-export function getEvents(member_id) {
+export function getEvents() {
   return (dispatch) => {
 
     if(localStorage.getItem('access-token')) {
@@ -23,14 +23,14 @@ export function getEvents(member_id) {
       verificationHeaders.append('client', localStorage.getItem('client').toString());
       verificationHeaders.append('expiry', localStorage.getItem('expiry').toString());
 
-      return fetch(`${HOST}/api/v1/members/${member_id}/events`, {
+      return fetch(`${HOST}/api/v1/events`, {
         method: 'GET',
         headers: verificationHeaders,
       })
       .then(response => response.json())
       .then(json => {
         if(json.is_success) {
-          dispatch(setEvents(json.member_events));
+          dispatch(setEvents(json.events));
         } else {
           alert(json.error);
         }

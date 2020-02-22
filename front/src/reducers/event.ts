@@ -12,7 +12,7 @@ export function eventReducer(
         case SET_EVENTS:
             return {
                 ...state,
-                events: [...state.events, action.payload]
+                events: action.payload
             }
         default:
             return state;

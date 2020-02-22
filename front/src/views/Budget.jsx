@@ -22,17 +22,16 @@ class Budget extends Component {
   constructor(props) {
     super(props);
     this.handleToEventForm = this.handleToEventForm.bind(this);
+    this.state = {activeKey: this.props.members.members[0].id || ""};
   }
 
   componentDidMount() {
-    const { members } = this.props;
-    members.members.map(member => {
-      this.props.getEvents(member.id);
-    });
+    this.props.getEvents();
   }
 
   handleToEventForm() {
-    this.props.history.push("/app/event/new");
+    this.props.history.push({pathname: "/app/event/new",
+                             state: {memberId: this.state.activeKey}});
   }
 
   render() {
@@ -46,7 +45,7 @@ class Budget extends Component {
             <h1 className="pageTitle">収支入力</h1>
           </div>
           <Container>
-            <Tabs id="tab-example">
+            <Tabs id="event-tab" activeKey={this.state.activeKey || members.members[0].id} onSelect={key => this.setState({activeKey: key})}>
               {members.members.map(member => (
                 <Tab
                   key={member.id.toString()}
@@ -75,8 +74,8 @@ class Budget extends Component {
                           data => data.member_id === member.id
                         ).length
                           ? events.events
-                              .filter(data => data.member_id === member.id)[0]
-                              .events.map((event, i) => (
+                              .filter(data => data.member_id === member.id)
+                              .map((event, i) => (
                                 <Col md={2} key={i}>
                                   <EventCard event={event}/>
                                 </Col>
@@ -102,7 +101,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getEvents: data => dispatch(getEvents(data))
+  getEvents: () => dispatch(getEvents())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Budget);
