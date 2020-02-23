@@ -21,7 +21,7 @@ import { EventCard } from "../components/EventCard";
 class Budget extends Component {
   constructor(props) {
     super(props);
-    this.handleToEventForm = this.handleToEventForm.bind(this);
+    this.handleToIncomeEventForm = this.handleToIncomeEventForm.bind(this);
     this.state = {activeKey: this.props.members.members[0].id || ""};
   }
 
@@ -29,9 +29,9 @@ class Budget extends Component {
     this.props.getEvents();
   }
 
-  handleToEventForm() {
+  handleToIncomeEventForm() {
     this.props.history.push({pathname: "/app/event/new",
-                             state: {memberId: this.state.activeKey}});
+                             state: {memberId: this.state.activeKey, categoryType: "income"}});
   }
 
   render() {
@@ -63,7 +63,7 @@ class Budget extends Component {
                           >
                             <div className="eventBox">
                               <Card.Body>
-                                <Button onClick={this.handleToEventForm}>
+                                <Button onClick={this.handleToIncomeEventForm}>
                                   追加
                                 </Button>
                               </Card.Body>

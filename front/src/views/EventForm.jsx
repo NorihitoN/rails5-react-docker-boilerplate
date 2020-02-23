@@ -41,7 +41,6 @@ import { connect } from "react-redux";
 //     console.log(this.props.location.state.memberId);
 //   }
 class EventForm extends Component {
-
   constructor(props) {
     super(props);
 
@@ -72,11 +71,9 @@ class EventForm extends Component {
   //     keyof EventState
   //   >);
 
-  handleInputChange = (e) => {
+  handleInputChange = e => {
     const key = e.target.name;
-    this.setState({ [key]: e.target.value});
-
-    console.log(this.state);
+    this.setState({ [key]: e.target.value });
   };
 
   //   // For Debug
@@ -91,9 +88,8 @@ class EventForm extends Component {
   //   // this.props.saveEvent(this.state);
   //   this.handleBack();
   // };
-  handleSave = (e) => {
+  handleSave = e => {
     e.preventDefault();
-    console.log(this.state);
     this.handleBack();
   };
   // handleBack = (): void => {
@@ -106,6 +102,10 @@ class EventForm extends Component {
 
   render() {
     const { categories } = this.props;
+    const filteredCategories = categories.categories.filter(
+      category =>
+        category.category_type === this.props.location.state.categoryType
+    );
     return (
       <div className="lifemapAppView">
         <Sidebar />
@@ -135,9 +135,11 @@ class EventForm extends Component {
                             value={this.state.categoryId}
                             onChange={this.handleInputChange}
                           >
-                            {categories.categories.map((category) => 
-                              <option value={category.id} key={category.id}>{category.category_name}</option>
-                            )}
+                            {filteredCategories.map(category => (
+                              <option value={category.id} key={category.id}>
+                                {category.category_name}
+                              </option>
+                            ))}
                           </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col} controlId="formSubCategory">
@@ -148,8 +150,16 @@ class EventForm extends Component {
                             value={this.state.subcategoryId}
                             onChange={this.handleInputChange}
                           >
-                            {categories.categories.filter(category => category.id == this.state.categoryId)[0].subcategories.map((subcategory => 
-                              <option key={subcategory.id}>{subcategory.subcategory_name}</option>))}
+                            {filteredCategories
+                              .filter(
+                                category =>
+                                  category.id === Number(this.state.categoryId)
+                              )[0]
+                              .subcategories.map(subcategory => (
+                                <option key={subcategory.id}>
+                                  {subcategory.subcategory_name}
+                                </option>
+                              ))}
                           </Form.Control>
                         </Form.Group>
                       </Form.Row>
@@ -184,7 +194,9 @@ class EventForm extends Component {
                             value={this.state.startYear}
                             onChange={this.handleInputChange}
                           >
-                            { [...Array(100)].map((_, i) => <option key={i}>{i}</option>) }
+                            {[...Array(100)].map((_, i) => (
+                              <option key={i}>{i}</option>
+                            ))}
                           </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col} controlId="formEndYear">
@@ -195,7 +207,11 @@ class EventForm extends Component {
                             value={this.state.endYear}
                             onChange={this.handleInputChange}
                           >
-                            { [...Array(100)].map((_, i) => (i > Number(this.state.startYear)) ? <option key={i}>{i}</option> : null ) }
+                            {[...Array(100)].map((_, i) =>
+                              i > Number(this.state.startYear) ? (
+                                <option key={i}>{i}</option>
+                              ) : null
+                            )}
                           </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col} controlId="formInterval">
@@ -239,11 +255,10 @@ class EventForm extends Component {
 }
 
 const mapStateToProps = state => ({
-  categories: state.categories,
-})
+  categories: state.categories
+});
 // const mapDispatchToProps = dispatch => ({
 //   saveMember: (data) => dispatch(saveMember(data)),
 // })
 
-// export default connect(null, mapDispatchToProps)(MemberForm);
 export default connect(mapStateToProps, null)(EventForm);
