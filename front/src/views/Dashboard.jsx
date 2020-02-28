@@ -1,26 +1,47 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Spinner } from 'react-bootstrap';
 import { saveFamily, getFamily } from '../actions/family.js';
 import { getMembers } from '../actions/member.js';
 import { getCategories } from '../actions/category.js';
+import { getEvents } from '../actions/event';
 import Sidebar from "../components/Sidebar.js";
 import { MemberCard } from '../components/MemberCard.js';
 import { addMemberCard } from '../components/AddMemberCard.js'
 
+function AppLoading() {
+  return (
+    <div className="loading-page">
+      <Spinner animation="border" variant="danger" />
+    </div>
+  );
+}
+
 class Dashboard extends Component {
   constructor(props){
     super(props);
-    this.state = { familyName: ''};
+    this.state = { familyName: '', isFetching: false};
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
   }
 
+  // getDerivedStateFromPropsの可能性は？
+  // https://reactjs.org/docs/react-component.html#static-getderivedstatefromprops
+
   componentDidMount() {
-    this.props.getFamily();
-    this.props.getMembers();
-    this.props.getCategories();
-  };
+    this.fetchData();
+  }
+
+  async fetchData() {
+    this.setState({isFetching: true});
+    if(!this.props.isLoading){
+      await this.props.getFamily();
+      await this.props.getMembers();
+      await this.props.getCategories();
+      await this.props.getEvents();
+    }
+    this.setState({isFetching: false});
+  }
 
   handleInputChange(e) {
     this.setState({
@@ -42,6 +63,9 @@ class Dashboard extends Component {
     )
 
     return (
+      (this.state.isFetching) ? (
+          <AppLoading />
+        ) : (
       <div className="lifemapAppView">
         <Sidebar/>
         <div className="mainPage">
@@ -93,11 +117,13 @@ class Dashboard extends Component {
             ) }
         </div>
       </div>
+        )
     )
   }
 }
 
 const mapStateToProps = state => ({
+  isLoading: state.auth.currentUser.isLoading,
   family: state.family,
   members: state.members,
 })
@@ -107,6 +133,7 @@ const mapDispatchToProps = dispatch => ({
   getFamily: () => dispatch(getFamily()),
   getMembers: () => dispatch(getMembers()),
   getCategories: () => dispatch(getCategories()),
+  getEvents: () => dispatch(getEvents()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

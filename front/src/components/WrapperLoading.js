@@ -5,9 +5,7 @@ import { Spinner } from 'react-bootstrap';
 function AppLoading() {
   return (
     <div className="loading-page">
-        <Spinner animation="grow" variant="secondary" />
-        <Spinner animation="grow" variant="secondary" />
-        <Spinner animation="grow" variant="secondary" />
+      <Spinner animation="border" variant="danger" />
     </div>
   );
 }

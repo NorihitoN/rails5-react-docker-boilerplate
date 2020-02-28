@@ -22,7 +22,11 @@ class Budget extends Component {
   constructor(props) {
     super(props);
     this.handleToIncomeEventForm = this.handleToIncomeEventForm.bind(this);
-    this.state = {activeKey: this.props.members.members[0].id || ""};
+    if(this.props.members.length){
+      this.state = {activeKey: this.props.members.members[0].id};
+    } else {
+      this.state = {activeKey: null};
+    }
   }
 
   componentDidMount() {
@@ -44,6 +48,11 @@ class Budget extends Component {
           <div className="topBar">
             <h1 className="pageTitle">収支入力</h1>
           </div>
+          { (!members.members.length)? (
+            <div>
+              メンバーが設定されていません。
+            </div>
+          ):(
           <Container>
             <Tabs id="event-tab" activeKey={this.state.activeKey || members.members[0].id} onSelect={key => this.setState({activeKey: key})}>
               {members.members.map(member => (
@@ -89,6 +98,7 @@ class Budget extends Component {
               ))}
             </Tabs>
           </Container>
+          )}
         </div>
       </div>
     );
