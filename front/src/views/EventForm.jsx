@@ -5,7 +5,7 @@ import Sidebar from "../components/Sidebar.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
-// import { saveMember } from '../actions/member.js';
+import { saveEvent } from '../actions/event.js';
 
 // import * as H from 'history'
 
@@ -46,7 +46,7 @@ class EventForm extends Component {
 
     const { categories } = this.props;
     const cat = categories.categories[0];
-    const subcat = cat.subcategories[0];
+    const subcat = (categories.categories.length)? cat.subcategories[0] : "";
 
     this.state = {
       startValue: "100",
@@ -55,9 +55,10 @@ class EventForm extends Component {
       intervalYear: "1",
       interestRate: "0.5",
       eventMemo: "",
-      categoryId: String(cat.id) || "",
-      subcategoryId: String(subcat.id) || "",
-      memberId: String(this.props.location.state.memberId)
+      categoryId: (cat) ? String(cat.id) : "",
+      subcategoryId: (subcat)? String(subcat.id) : "",
+      memberId: String(this.props.location.state.memberId),
+      // memberId: (this.props.location.state)? String(this.props.location.state.memberId) : "",
     };
   }
 
@@ -74,6 +75,12 @@ class EventForm extends Component {
   handleInputChange = e => {
     const key = e.target.name;
     this.setState({ [key]: e.target.value });
+    if (key == "categoryId") {
+      const { categories } = this.props;
+      const cat = categories.categories.filter(category => category.id === Number(e.target.value))[0];
+      const subcat = cat.subcategories[0];
+      this.setState({ subcategoryId: String(subcat.id)});
+    }
   };
 
   //   // For Debug
@@ -90,6 +97,8 @@ class EventForm extends Component {
   // };
   handleSave = e => {
     e.preventDefault();
+    console.log(this.state);
+    this.props.saveEvent(this.state);
     this.handleBack();
   };
   // handleBack = (): void => {
@@ -106,6 +115,7 @@ class EventForm extends Component {
       category =>
         category.category_type === this.props.location.state.categoryType
     );
+    const hasCategory = (filteredCategories.length)? true : false;
     return (
       <div className="lifemapAppView">
         <Sidebar />
@@ -150,7 +160,7 @@ class EventForm extends Component {
                             value={this.state.subcategoryId}
                             onChange={this.handleInputChange}
                           >
-                            {filteredCategories
+                            {(hasCategory)? filteredCategories
                               .filter(
                                 category =>
                                   category.id === Number(this.state.categoryId)
@@ -159,7 +169,9 @@ class EventForm extends Component {
                                 <option key={subcategory.id}>
                                   {subcategory.subcategory_name}
                                 </option>
-                              ))}
+                              ))
+                            :
+                            <option></option>}
                           </Form.Control>
                         </Form.Group>
                       </Form.Row>
@@ -257,8 +269,8 @@ class EventForm extends Component {
 const mapStateToProps = state => ({
   categories: state.categories
 });
-// const mapDispatchToProps = dispatch => ({
-//   saveMember: (data) => dispatch(saveMember(data)),
-// })
+const mapDispatchToProps = dispatch => ({
+  saveEvent: (data) => dispatch(saveEvent(data)),
+})
 
-export default connect(mapStateToProps, null)(EventForm);
+export default connect(mapStateToProps, mapDispatchToProps)(EventForm);

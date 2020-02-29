@@ -9,7 +9,7 @@ module Api
       def index
         events = current_api_user.family.members.map{|member| member.events }.flatten
         render json: {
-          events: events,
+          events: events.map{|event| event.attributes.merge(category_name: event.category.category_name, subcategory_name: event.subcategory.subcategory_name)},
           is_success: true
         }, status: :ok
       end
@@ -34,7 +34,7 @@ module Api
           category_id = event.category_id
           subcategory_id = event.subcategory_id
           interval_year = event.interval_year
-          interest_rate = event.interest_rate
+          interest_rate = event.interest_rate/100
           event_id = event.id
           year_list = (event.start_year..event.end_year).select.each_with_index{ |_,i| i%interval_year==0 }
 
@@ -73,7 +73,7 @@ module Api
           category_id = event.category_id
           subcategory_id = event.subcategory_id
           interval_year = event.interval_year
-          interest_rate = event.interest_rate
+          interest_rate = event.interest_rate/100
           event_id = event.id
           year_list = (event.start_year..event.end_year).select.each_with_index{ |_,i| i%interval_year==0 }
 

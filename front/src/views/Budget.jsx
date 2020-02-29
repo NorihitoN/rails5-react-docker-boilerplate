@@ -22,7 +22,7 @@ class Budget extends Component {
   constructor(props) {
     super(props);
     this.handleToIncomeEventForm = this.handleToIncomeEventForm.bind(this);
-    if(this.props.members.length){
+    if(this.props.members.members.length){
       this.state = {activeKey: this.props.members.members[0].id};
     } else {
       this.state = {activeKey: null};

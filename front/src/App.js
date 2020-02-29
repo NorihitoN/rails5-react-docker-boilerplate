@@ -33,15 +33,17 @@ class App extends Component {
             <Route exact path="/signup" component={Signup} />
             <Auth>
               <Switch>
-                <Route exact path="/app" component={Dashboard} />
                 <Route exact path="/app/members" component={Member} />
                 <Route exact path="/app/members/new" component={MemberForm} />
                 <Route exact path="/app/budget" component={Budget} />
                 <Route exact path="/app/event/new" component={EventForm} />
                 <Route exact path="/app/cashflow" component={Cashflow} />
                 <Route exact path="/app/profile" component={Profile} />
+                <Route path="/app" component={Dashboard} />
+                <Route render={() => <h2>Page is Not Found</h2>} />
               </Switch>
             </Auth>
+            <Route render={() => <h2>Not Found</h2>} />
           </Switch>
         </Router>
       </Provider>

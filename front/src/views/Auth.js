@@ -11,6 +11,10 @@ function AppLoading() {
   );
 }
 
+// 要修正
+// すべてのページにgetFetchを書くよりも、Authに書いたほうが管理しやすい
+// Wrapper関数とする
+// /app内の画面遷移でgetFetchは毎回読み込まれるのか？
 const Auth = (props) => {
     return (
       // DashboardをrenderしなおすとisSignInが初期化falseとなり一瞬login画面が表示される。

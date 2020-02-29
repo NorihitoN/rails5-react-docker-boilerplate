@@ -15,7 +15,8 @@ export const EventCard: React.FC<EventCardProps> = props => {
     <Card className="eventCard" style={{ marginBottom: "15px" }}>
       <div className="eventBox">
         <Card.Body>
-          <Card.Title>給与</Card.Title>
+          <Card.Title>{event.category_name}</Card.Title>
+          <Card.Title>{event.subcategory_name}</Card.Title>
           <Card.Text>{event.event_memo}</Card.Text>
           <Card.Text> {event.start_value}万円 </Card.Text>
           <Card.Text>{event.start_year}歳-{event.end_year}歳</Card.Text>
