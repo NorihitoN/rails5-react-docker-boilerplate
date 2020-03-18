@@ -1,0 +1,37 @@
+# https://seroku.jp/wp/visual-studio-code-%E3%81%A7-ruby-on-rails-%E9%96%8B%E7%99%BA%E3%81%AB%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E6%8B%A1%E5%BC%B5%E6%A9%9F%E8%83%BD/#Ruby
+include:
+  - "app/**/*.rb"
+  - "config/**/*.rb"
+# Ruby on Rails のサポートを強化するための設定
+# 完全な入力補完が実現できるわけではないが、設定をしないよりは少し使えるようになる
+# 参照: https://github.com/castwide/solargraph/issues/87
+require: 
+  - actioncable
+  - actionmailer
+  - actionpack
+  - actionview
+  - activejob
+  - activemodel
+  - activerecord
+  - activestorage
+  - activesupport
+# lint の設定
+# ここでは rubocop を使用する想定の設定をしている
+reporters:
+- rubocop
+
+# DEFAULT SETTING 
+# --- include:
+# - "**/*.rb"
+# exclude:
+# - spec/**/*
+# - test/**/*
+# - vendor/**/*
+# - ".bundle/**/*"
+# require: []
+# domains: []
+# reporters:
+# - rubocop
+# - require_not_found
+# require_paths: []
+# max_files: 5000
