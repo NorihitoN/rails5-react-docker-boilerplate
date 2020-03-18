@@ -29,5 +29,20 @@ module Myapp
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    # definition of rspec gererators file
+    config.generators do |g|
+      g.test_framework :rspec,
+        view_specs: false,
+        helper_specs: false,
+        controller_specs: false,
+        routing_specs: false,
+        fixtures: true
+      g.fixture_replacement :factory_bot, dir: "spec/factories"
+
+    end
+
+    # Time zone setting for ActiveSupport
+    # config.time_zone = "Tokyo"
   end
 end
