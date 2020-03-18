@@ -16,7 +16,7 @@ import {
 } from "react-bootstrap";
 import { getEvents } from "../actions/event";
 import Sidebar from "../components/Sidebar";
-import { EventCard } from "../components/EventCard";
+import EventCard from "../components/EventCard";
 
 class Budget extends Component {
   constructor(props) {
@@ -84,8 +84,8 @@ class Budget extends Component {
                         ).length
                           ? events.events
                               .filter(data => data.member_id === member.id)
-                              .map((event, i) => (
-                                <Col md={2} key={i}>
+                              .map(event => (
+                                <Col md={2} key={event.id}>
                                   <EventCard event={event}/>
                                 </Col>
                               ))

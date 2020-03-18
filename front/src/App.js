@@ -15,6 +15,7 @@ import Member from "./views/Member";
 import MemberForm from "./views/MemberForm";
 import Budget from "./views/Budget";
 import EventForm from "./views/EventForm";
+import EventEditForm from "./views/EventEditForm";
 import Cashflow from "./views/Cashflow";
 // import WrapperLoading from './components/WrapperLoading.js';
 
@@ -37,6 +38,7 @@ class App extends Component {
                 <Route exact path="/app/members/new" component={MemberForm} />
                 <Route exact path="/app/budget" component={Budget} />
                 <Route exact path="/app/event/new" component={EventForm} />
+                <Route exact path="/app/event/edit" component={EventEditForm} />
                 <Route exact path="/app/cashflow" component={Cashflow} />
                 <Route exact path="/app/profile" component={Profile} />
                 <Route path="/app" component={Dashboard} />

@@ -5,7 +5,7 @@ import Sidebar from "../components/Sidebar.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
-import { saveEvent } from '../actions/event.js';
+import { updateEvent } from '../actions/event.js';
 
 // import * as H from 'history'
 
@@ -40,28 +40,25 @@ import { saveEvent } from '../actions/event.js';
 //     };
 //     console.log(this.props.location.state.memberId);
 //   }
-class EventForm extends Component {
+class EventEditForm extends Component {
   constructor(props) {
     super(props);
-
-    const { categories } = this.props;
-    const cat = categories.categories[0];
-    const subcat = (categories.categories.length)? cat.subcategories[0] : "";
+    const event = this.props.location.state.event;
 
     this.state = {
       event: {
-        startValue: "100",
-        startYear: "35",
-        endYear: "45",
-        intervalYear: "1",
-        interestRate: "0.5",
-        eventMemo: "",
-        categoryId: (cat) ? String(cat.id) : "",
-        subcategoryId: (subcat)? String(subcat.id) : "",
+        id: String(event.id),
+        startValue: String(event.start_value), 
+        startYear: String(event.start_year),
+        endYear: String(event.end_year),
+        intervalYear: String(event.interval_year),
+        interestRate: String(event.interest_rate),
+        eventMemo: event.event_memo,
+        categoryId: String(event.category_id),
+        subcategoryId: String(event.subcategory_id),
       },
-      memberId: String(this.props.location.state.memberId),
+      memberId: String(event.member_id), 
     };
-
   }
 
   // handleInputChange = (e: React.FormEvent<HTMLInputElement>): void => {
@@ -97,17 +94,17 @@ class EventForm extends Component {
   //   // console.log(this.props.location.state.memberId);
   // };
 
-  // handleSave = (e: React.MouseEvent<HTMLButtonElement>): void => {
+  // handleUpdate = (e: React.MouseEvent<HTMLButtonElement>): void => {
   //   e.preventDefault();
   //   // save event action here.
   //   console.log(this.state);
   //   // this.props.saveEvent(this.state);
   //   this.handleBack();
   // };
-  handleSave = e => {
+  handleUpdate = e => {
     e.preventDefault();
-    console.log(this.state);
-    this.props.saveEvent(this.state);
+    // console.log(this.state);
+    this.props.updateEvent(this.state);
     this.handleBack();
   };
   // handleBack = (): void => {
@@ -260,8 +257,8 @@ class EventForm extends Component {
                           onChange={this.handleInputChange}
                         />
                       </Form.Group>
-                      <Button variant="primary" onClick={this.handleSave}>
-                        保存
+                      <Button variant="primary" onClick={this.handleUpdate}>
+                        更新 
                       </Button>
                     </Form>
                   </Card.Body>
@@ -279,7 +276,7 @@ const mapStateToProps = state => ({
   categories: state.categories
 });
 const mapDispatchToProps = dispatch => ({
-  saveEvent: (data) => dispatch(saveEvent(data)),
-});
+  updateEvent: (data) => dispatch(updateEvent(data)),
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventForm);
+export default connect(mapStateToProps, mapDispatchToProps)(EventEditForm);
